@@ -1,9 +1,6 @@
-module fulladder(A, B, cin, sum, cout);
-input A, B, cin;
-output sum;
-output cout;
+module fulladder(A, B, CI, CO, S);
+input A, B, CI;
+output CO, S;
 
-assign sum = A ^ B ^ cin;
-assign cout = (A & B) | (A & cin) | (B & cin);
-
+assign {CO, S} = A + B + CI;
 endmodule

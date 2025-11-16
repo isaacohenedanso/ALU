@@ -1,27 +1,33 @@
 `timescale 1ns / 1ps;
 module alu_tb;
 
-reg [3: 0]X, Y;;
-reg [2: 0] S;
-reg [1: 0] shamt;
-reg d;
+reg [7: 0]Y, X;
+reg [3: 0] S;
+reg [2: 0] shift_amount;
+reg shift_direction;
 
-wire [3: 0] outp;
+wire [7: 0] Outp;
+wire Cout;
 
-alu dut(.X(X), .Y(Y), .S(S), .d(d), .shamt(shamt), .cout(cout), .outp(outp));
+// alu(X, Y, S, shift_amount, shift_direction, Outp, Cout);
+alu dut(X, Y, S, shift_amount, shift_direction, Outp, Cout);
 
 initial begin
     $dumpfile("alu.vcd");
-    $dumpvars(0, alu_tb);
-    $monitor("X = %4b, Y = %4b, S = %3b shamt = %2b, d = %b, cout = %b, outp = %4b", X, Y, S, shamt, d, cout, outp);
+    $dumpvars(0);
 end
 
-integer i;
 initial begin
-    for(i = 0; i < 16384; i = i + 1) begin
-        {X, Y, S, shamt, d} = i;
-        #1;
-    end
+     Y = 8'd10;  X = 8'd5;   S = 4'b0000;  shift_amount = 3'd0;  shift_direction = 1'b0;
+        #10;
+        Y = 8'd20;  X = 8'd7;   S = 4'b1001;  shift_amount = 3'd1;  shift_direction = 1'b0;
+        #10;
+        Y = 8'd50;  X = 8'd25;  S = 4'b0010;  shift_amount = 3'd2;  shift_direction = 1'b1;
+        #10;
+        Y = 8'd100; X = 8'd200; S = 4'b0011;  shift_amount = 3'd3;  shift_direction = 1'b1;
+        #10;
+
+        $finish;
 end
 endmodule
 

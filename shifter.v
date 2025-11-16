@@ -1,13 +1,13 @@
-module shifter(data, shamt, direction, outp);
+module shifter(data, shamt, shdir, outp);
 //direction
 //1 = right
 //0 = left
-input [3: 0] data;
-input [1: 0] shamt;
-input direction;
-output [3: 0] outp;
+input [7: 0] data;
+input [2: 0] shamt;
+input shdir;
+output [7: 0] outp;
 
-assign outp = (direction)? (data >> shamt) : (data << shamt);
+assign outp = (shdir)? (data >> shamt) : (data << shamt);
 
 endmodule
 
